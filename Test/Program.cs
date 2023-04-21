@@ -33,10 +33,7 @@
         корректны.*/
         static void Main(string[] args)
         {
-            //Console.WriteLine("Hello, World!");
-
-            //EnterUser();
-
+            
             PrintInfo(EnterUser());
         }
 
@@ -47,11 +44,19 @@
 
             Console.WriteLine("Введите ваше имя:");
 
-            User.Name = Console.ReadLine();
+            string s1;
+            while (!TryString(Console.ReadLine(), out s1))
+                Console.WriteLine("Повторите ввод");
+            
+            User.Name = s1;
 
             Console.WriteLine("Введите вашу фамилию:");
 
-            User.LastName = Console.ReadLine();
+            string s2;
+            while (!TryString(Console.ReadLine(), out s2))
+                Console.WriteLine("Повторите ввод");
+
+            User.LastName = s2;
 
             string age;
             int intage;
@@ -64,6 +69,7 @@
 
             User.Age = intage;
 
+            User.Pets = null;
             Console.WriteLine("Есть ли у вас питомцы?");
 
             string hasPets = Console.ReadLine();
@@ -71,29 +77,18 @@
             string petsNumber;
             int intPetsNumber;
 
-
-
-
-            do
+            if (hasPets == "да")
             {
+                do
+                {
+                    Console.WriteLine("Сколько питомцев у вас есть?");
+                    petsNumber = Console.ReadLine();
 
-                Console.WriteLine("Сколько питомцев у вас есть?");
-                petsNumber = Console.ReadLine();
-
-
-            } while (CheckNum(petsNumber, out intPetsNumber));
-
-            User.Pets = CreateArrayPets(intPetsNumber);
-
-
-
-            /* else
-             {
-                 Console.WriteLine("Спасибо за ответ!");
-             }
- */
-            //User.Pets = CreateArrayPets(petsNumber);
-
+                } while (CheckNum(petsNumber, out intPetsNumber));
+                User.Pets = CreateArrayPets(intPetsNumber);
+            }
+            
+            User.Favcolors = null;
 
             string colorsNumber;
             int intcolorsNumber;
@@ -105,16 +100,19 @@
                 colorsNumber = Console.ReadLine();
             } while (CheckNum(colorsNumber, out intcolorsNumber));
 
-
-
             User.Favcolors = CreateArrayFavcolors(intcolorsNumber);
-
-
-            User = (User.Name, User.LastName, User.Age, User.Pets, User.Favcolors);
 
             return User;
         }
 
+        static bool TryString(string s, out string r)
+        {
+            r = s;
+            for (int i = 0; i <= 9; ++i)
+                if (s.Contains(i.ToString()))
+                    return false;
+            return true;
+        }
 
         static bool CheckNum(string number, out int correctnum)
         {
@@ -164,11 +162,29 @@
 
         static void PrintInfo((string Name, string LastName, int Age, string[] Pets, string[] Favcolors) User){
 
-            Console.WriteLine("Name: {0}", User.Name);
+            Console.WriteLine("Имя: {0}", User.Name);
+            Console.WriteLine("Фамилия: {0}", User.LastName);
+            Console.WriteLine("Возраст: {0}", User.Age);
+
+            if (User.Pets == null)
+            {
+                Console.Write("Питомцы: нет домашних питомцев");
+            }
+            else
+            {
+                Console.Write("Питомцы:");
+                foreach (string pet in User.Pets)
+                {
+                    Console.Write(" " + pet + " ");
+                }
+            }
             Console.WriteLine(" ");
-            Console.WriteLine(" ");
-            Console.WriteLine(" ");
-            Console.WriteLine(" ");
+            Console.Write("Любимые цвета:");
+            foreach (string color in User.Favcolors)
+            {
+                Console.Write(" " + color + " ");
+            }
+
     }
  }
 }
