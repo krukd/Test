@@ -1,68 +1,72 @@
 ﻿namespace Test
 {
 
-    class Circle
+
+
+    class User
     {
-        public double radius;
+        private int age;
 
-        /*public double Square()
+        private string login;
+
+        private string email;
+
+
+        public string Login
         {
-        }*/
+            get { return login; }
 
-        /*public double Length()
-        {
-        }*/
-    }
-
-    class Triangle
-    {
-        public int a;
-        public int b;
-        public int c;
-
-        /*public double Square()
-        {
-        }*/
-
-        /*public double Perimeter()
-        {
-        }*/
-    }
-
-    class Square
-    {
-        public int side;
-
-        /*public double Square()
-        {
-        }*/
-
-        /*public double Perimeter()
-        {
-        }*/
-    }
-    class Car
-    {
-        public double Fuel;
-
-        public int Mileage;
-
-        public Car()
-        {
-            Fuel = 50;
-            Mileage = 0;
+            set 
+            {
+            if (value.Length < 3)
+                {
+                    Console.WriteLine("Логин должен быть не менее 3 символов");
+                }
+                else
+                {
+                    login = value;
+                }
+            
+            }
         }
 
-        public void Move()
+        public string Email
         {
-            // Move a kilometer
-            Mileage++;
-            Fuel -= 0.5;
+            get { return email; }
+
+            set {
+                if (!value.Contains('@'))
+                {
+                    Console.WriteLine("Email должен включать символ @");
+                }
+                else
+                {
+                    email = value;
+                }
+                    
+                }
         }
 
-        public void FillTheCar()
+
+
+        public int Age
         {
-            Fuel = 50;
+            get
+            {
+                return age;
+            }
+
+            set
+            {
+                if (value < 18)
+                {
+                    Console.WriteLine("Возраст должен быть не меньше 18");
+                }
+                else
+                {
+                    age = value;
+                }
+            }
         }
     }
     internal class Program
